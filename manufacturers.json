@@ -1,11 +1,9 @@
 {
   "manufacturer3" : {
-    "id" : 0,
     "name" : "manufacturer3",
     "country" : "ua",
     "souvenirs" : {
       "test" : {
-        "id" : 0,
         "name" : "test",
         "dateOfProduction" : [ 2023, 5, 21 ],
         "price" : 33.3
@@ -13,24 +11,20 @@
     }
   },
   "manufacturer1" : {
-    "id" : 0,
     "name" : "manufacturer1",
     "country" : "ua",
     "souvenirs" : {
       "some name" : {
-        "id" : 0,
         "name" : "some name",
         "dateOfProduction" : [ 2023, 5, 21 ],
         "price" : 1.23
       },
       "statuette" : {
-        "id" : 0,
         "name" : "statuette",
         "dateOfProduction" : [ 2022, 1, 1 ],
         "price" : 12.0
       },
       "toy" : {
-        "id" : 0,
         "name" : "toy",
         "dateOfProduction" : [ 2012, 3, 4 ],
         "price" : 9.99
@@ -38,18 +32,15 @@
     }
   },
   "manufacturer2" : {
-    "id" : 0,
     "name" : "manufacturer2",
     "country" : "us",
     "souvenirs" : {
       "statuette" : {
-        "id" : 0,
         "name" : "statuette",
         "dateOfProduction" : [ 2022, 1, 1 ],
         "price" : 12.0
       },
       "sticker" : {
-        "id" : 0,
         "name" : "sticker",
         "dateOfProduction" : [ 2022, 3, 7 ],
         "price" : 1.5

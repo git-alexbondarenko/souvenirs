@@ -13,7 +13,6 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Manufacturer implements Serializable {
-    private int id;
     private String name;
     private String country;
     @JsonManagedReference
