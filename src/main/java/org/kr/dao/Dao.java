@@ -1,39 +1,50 @@
 package org.kr.dao;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.kr.domain.Manufacturer;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Dao {
 
     private final Map<String, Manufacturer> manufacturers;
+    private final ObjectMapper objectMapper;
+    private final File file;
 
     public Dao() {
-        try {
-            manufacturers = new HashMap<>();
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        file = new File("manufacturers.json");
 
-            File file = new File("manufacturers.bin");
-            if (!file.exists()) {
-                save();
+        if (!file.exists()) {
+            manufacturers = new HashMap<>();
+            save();
+        } else {
+            try {
+                manufacturers = objectMapper.readValue(file, new TypeReference<>() {
+                });
+            } catch (IOException e) {
+                throw new RuntimeException("Error reading manufacturers from JSON file", e);
             }
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            manufacturers.putAll(new HashMap<>((Map<String, Manufacturer>) ois.readObject()));
-            ois.close();
-            fis.close();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public Dao(Map<String, Manufacturer> manufacturers) {
         this.manufacturers = manufacturers;
+        objectMapper = new ObjectMapper();
+        file = new File("manufacturers.json");
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
     public Map<String, Manufacturer> index() {
-            return manufacturers;
+        return manufacturers;
     }
 
     public Manufacturer get(String manufacturerName) {
@@ -52,13 +63,10 @@ public class Dao {
 
     public void save() {
         try {
-            FileOutputStream fos = new FileOutputStream("manufacturers.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(manufacturers);
-            oos.close();
-            fos.close();
+            objectMapper.writeValue(file, manufacturers);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error writing manufacturers to JSON file", e);
         }
     }
 }
+

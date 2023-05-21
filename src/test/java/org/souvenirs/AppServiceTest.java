@@ -41,6 +41,11 @@ public class AppServiceTest
     }
 
     @Test
+    public void testGetSouvenirs() {
+        assertTrue(souvenirService.getSouvenirs().containsAll(souvenirsList));
+    }
+
+    @Test
     public void testAddSouvenir() {
         souvenirService.addSouvenir("some name", LocalDate.now(), 1.23, "manufacturer1");
         assertTrue(manufacturerService
@@ -49,12 +54,7 @@ public class AppServiceTest
     }
 
     @Test
-    public void testGetSouvenirs() {
-        assertTrue(souvenirService.getSouvenirs().containsAll(souvenirsList));
-    }
-
-    @Test
-    public void testDeleteSouvenir() {
+    public void testRemoveSouvenir() {
         souvenirService.removeSouvenir("manufacturer1", "toy");
         assertEquals(1, manufacturerService.getManufacturers()
                 .stream()
@@ -74,19 +74,19 @@ public class AppServiceTest
     }
 
     @Test
-    public void getManufacturersBySouvenirPriceUnder() {
+    public void testGetManufacturersBySouvenirPriceUnder() {
         manufacturersList.remove(2);
         assertEquals(manufacturersList, manufacturerService.getManufacturersBySouvenirPriceUnder(20));
     }
 
     @Test
-    public void getManufacturersBySouvenirNameAndProductionYear() {
+    public void testGetManufacturersBySouvenirNameAndProductionYear() {
         assertEquals(manufacturersList.subList(0, 2),
                 manufacturerService.getManufacturersBySouvenirNameAndProductionYear("statuette", 2022));
     }
 
     @Test
-    public void getSouvenirsByProductionYear() {
+    public void testGetSouvenirsByProductionYear() {
         assertEquals(List.of(souvenir1,souvenir5, souvenir2), souvenirService.getSouvenirsByProductionYear(2022));
     }
 
